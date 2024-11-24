@@ -1,0 +1,270 @@
+/* Общие стили для страницы */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Основная раскладка */
+.main-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1300px;
+    width: 100%;
+    padding: 40px;
+    margin-top: 20px;
+}
+
+header {
+    background-color: #3b7dd8;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid #2a5bb8;
+    border-radius: 5px;
+}
+
+.container, .res-table {
+    flex: 1;
+    max-width: 800px;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.container:hover, .results-container:hover {
+    transform: translateY(-5px);
+}
+
+/* Заголовки */
+h1, h2 {
+    margin: 0;
+    font-weight: 700;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/* Стили для input-групп */
+.input-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #3b7dd8;
+    outline: none;
+}
+
+/* Радиокнопки и чекбоксы */
+.checkbox-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.checkbox-buttons label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.checkbox-buttons label:hover {
+    background-color: #e0e0e0;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+}
+
+input[type="radio"]:checked + label, input[type="checkbox"]:checked + label {
+    background-color: #3b7dd8;
+    color: white;
+}
+
+/* Стили для кнопок */
+button[type="submit"] {
+    background-color: #3b7dd8;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:hover {
+    background-color: #2a5bb8;
+    transform: translateY(-3px);
+}
+
+button[type="submit"]:active {
+    background-color: #244b97;
+    transform: translateY(1px);
+}
+
+/* Стили для таблицы результатов */
+.res-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.res-table th, .res-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.res-table th {
+    background-color: #3b7dd8;
+    color: white;
+    font-size: 16px;
+}
+
+.res-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.res-table tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Стили для SVG */
+svg {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-left: 110px;
+}
+
+/* Стили для input-log */
+#input-log {
+    margin-top: 20px;
+    padding: 15px;
+    color: #ffffff;
+    background-color: #e74c3c;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    font-weight: 600;
+    display: none;
+    text-align: center;
+}
+
+#input-log.success {
+    background-color: #2ecc71;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .container, .res-table {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 20px;
+    }
+
+    svg {
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Стили для кнопки очистки */
+#clear-storage {
+    background-color: #e74c3c;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
+}
+
+#clear-storage:hover {
+    background-color: #c0392b;
+    transform: translateY(-3px);
+}
+
+#clear-storage:active {
+    background-color: #a93226;
+    transform: translateY(1px);
+}
+
+.y-buttons {
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+}
+
+.y-btn {
+    padding: 10px 20px; /* Внутренние отступы */
+    border: 2px solid lightgray; /* Рамка кнопки */
+    border-radius: 5px; /* Скругление углов */
+    background-color: white; /* Фон по умолчанию */
+    color: black; /* Цвет текста */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Курсор "указатель" при наведении */
+    transition: background-color 0.3s, border-color 0.3s; /* Анимация изменения стиля */
+}
+
+.y-btn:hover {
+    background-color: lightblue; /* Цвет фона при наведении */
+}
+
+.y-btn.active {
+    background-color: dodgerblue; /* Цвет фона для выбранной кнопки */
+    color: white; /* Цвет текста для выбранной кнопки */
+    border-color: dodgerblue; /* Цвет рамки для выбранной кнопки */
+    font-weight: bold; /* Жирный текст для выбранной кнопки */
+}

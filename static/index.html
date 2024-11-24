@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Лабораторная работа</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<header>
+  <h1>Собитов Анвархон Акмалович</h1>
+  <h2>Группа: P3210, Вариант: 5135315</h2>
+</header>
+<div class="main-layout">
+  <div class="container">
+    <form id="myForm" method="GET">
+      <div class="input-group">
+        <label for="x">Изменение X:</label>
+        <input type="text" id="x" name="x" placeholder="от -3 до 3">
+      </div>
+
+      <div class="input-group">
+        <label>Изменение Y:</label>
+        <div class="y-buttons">
+          <button type="button" class="y-btn" data-value="-3">-3</button>
+          <button type="button" class="y-btn" data-value="-2">-2</button>
+          <button type="button" class="y-btn" data-value="-1">-1</button>
+          <button type="button" class="y-btn" data-value="0">0</button>
+          <button type="button" class="y-btn" data-value="1">1</button>
+          <button type="button" class="y-btn" data-value="2">2</button>
+          <button type="button" class="y-btn" data-value="3">3</button>
+          <button type="button" class="y-btn" data-value="4">4</button>
+          <button type="button" class="y-btn" data-value="5">5</button>
+        </div>
+      </div>
+
+
+      <div class="input-group">
+        <label>Изменение R:</label>
+        <div class="checkbox-buttons">
+          <label><input type="checkbox" class="r" name="r" value="1"> 1</label>
+          <label><input type="checkbox" class="r" name="r" value="2"> 2</label>
+          <label><input type="checkbox" class="r" name="r" value="3"> 3</label>
+          <label><input type="checkbox" class="r" name="r" value="4"> 4</label>
+          <label><input type="checkbox" class="r" name="r" value="5"> 5</label>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <button id="send" type="submit">Выполнить проверку</button>
+      </div>
+    </form>
+    <svg height="300" width="300">
+      <line stroke="black" x1="150" x2="150" y1="300" y2="0"></line>
+      <text x="160" y="12">Y</text>
+      <line stroke="black" x1="0" x2="300" y1="150" y2="150"></line>
+      <text x="286" y="135">X</text>
+
+      <line stroke="black" x1="147" x2="153" y1="30" y2="30"></line>
+      <text x="160" y="35">R</text>
+      <line stroke="black" x1="147" x2="153" y1="90" y2="90"></line>
+      <text x="160" y="95">R/2</text>
+      <line stroke="black" x1="147" x2="153" y1="210" y2="210"></line>
+      <text x="160" y="215">-R/2</text>
+      <line stroke="black" x1="147" x2="153" y1="270" y2="270"></line>
+      <text x="160" y="275">-R</text>
+      <line stroke="black" x1="30" x2="30" y1="147" y2="153"></line>
+      <text x="23" y="140">-R</text>
+      <line stroke="black" x1="90" x2="90" y1="147" y2="153"></line>
+      <text x="83" y="140">-R/2</text>
+      <line stroke="black" x1="210" x2="210" y1="147" y2="153"></line>
+      <text x="202" y="140">R/2</text>
+      <line stroke="black" x1="270" x2="270" y1="147" y2="153"></line>
+      <text x="264" y="140">R</text>
+
+      <line stroke="black" x1="300" x2="290" y1="150" y2="146"></line>
+      <line stroke="black" x1="300" x2="290" y1="150" y2="154"></line>
+      <line stroke="black" x1="150" x2="146" y1="0" y2="10"></line>
+      <line stroke="black" x1="150" x2="154" y1="0" y2="10"></line>
+
+      <circle id="point" cx="150" cy="150" r="5" fill="green"></circle>
+
+      <polygon fill="dodgerblue" fill-opacity="0.5" points="90,30 150,30 150,150 90,150"></polygon>
+
+      <polygon fill="dodgerblue" fill-opacity="0.5" points="150,150 270,150 150,90"></polygon>
+
+      <path fill="dodgerblue" fill-opacity="0.5" d="M210,150 A60,60 0 0,1 150,210 L150,150"></path>
+    </svg>
+    <div id="input-log"></div>
+
+  </div>
+
+  <div class="res-table">
+    <table>
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>X</th>
+        <th>Y</th>
+        <th>R</th>
+        <th>Факт</th>
+        <th>Время Запроса</th>
+        <th>Время выполнения</th>
+      </tr>
+      </thead>
+      <tbody class="jsTableRes"></tbody>
+    </table>
+    <button id="clear-storage" type="button">Очистить данные</button>
+
+  </div>
+  <script type="module" src="main.js"></script>
+</div>
+</body>
+</html>

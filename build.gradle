@@ -10,10 +10,26 @@ repositories {
 }
 
 dependencies {
+    implementation files('libs/fastcgi-lib.jar')
+
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    archiveBaseName.set("server")
+    archiveVersion.set("")
+    manifest {
+        attributes(
+                'Main-Class': 'Server'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
