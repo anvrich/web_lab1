@@ -180,6 +180,12 @@ svg {
     margin-left: 110px;
 }
 
+
+.success {
+    color: green;
+}
+
+
 /* Стили для input-log */
 #input-log {
     margin-top: 20px;

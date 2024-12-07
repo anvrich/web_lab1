@@ -3,7 +3,7 @@ package validation;
 public class Validate {
     private String errorMessage = "";
 
-    public boolean check(int x, float y, int r) {
+    public boolean check(float x, int y, int r) {
         errorMessage = "";
 
         boolean isValidX = validateX(x);
@@ -12,7 +12,7 @@ public class Validate {
         return isValidX && isValidY && isValidR;
     }
 
-    private boolean validateX(int x) {
+    private boolean validateX(float x) {
         if (x >= -3 && x <= 3) {
             return true;
         } else {
@@ -21,7 +21,7 @@ public class Validate {
         }
     }
 
-    private boolean validateY(float y) {
+    private boolean validateY(int y) {
         if (y >= -3 && y <= 5) {
             return true;
         } else {

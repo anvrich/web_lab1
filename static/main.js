@@ -1,43 +1,45 @@
 import { check } from './validation.js';
 
-let selectedY = null;
-
+let y = null;
 document.querySelectorAll('.y-btn').forEach(button => {
-    button.addEventListener('click', function () {
-        selectedY = this.getAttribute('data-value');
-        document.querySelectorAll('.y-btn').forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-    });
-});
-
-
-document.getElementById('send').addEventListener('click', (e) => {
-    e.preventDefault();
-
-    const x = document.getElementById('x').value;
-    const y = selectedY; // Используем выбранное значение Y
-    const r = document.querySelector('input[name="r"]:checked')?.value || null;
-console.log(x,y,r)
-    if (!check(x, y, r)) {
-        return;
-    }
-
-    fetch(`http://localhost:8080/calculate?x=${parseFloat(x)}&y=${parseFloat(y)}&r=${parseFloat(r)}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+    button.addEventListener('click' , () => {
+        y = button.getAttribute('data-value');
+        document.querySelectorAll(".y-btn").forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active')
     })
-        .then(response => response.json())
-        .then(parsedRes => {
-            addRowToTable(parsedRes);
-            saveResultToLocalStorage(parsedRes);
-        })
-        .catch(error => {
-            console.error("Ошибка при обработке ответа сервера:", error);
-            document.getElementById("input-log").innerText = 'Ошибка при обработке ответа сервера';
+})
+
+document.getElementById('send').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const x = document.getElementById('x').value.replace(',', '.');
+    const r =  Array.from(document.querySelectorAll('input[name="r"]:checked')).map(input => input.value);
+    if (!check(x, y, r)) return;
+    try {
+        const results = await fetchResults(x, y, r);
+        results.forEach(res => {
+            addRowToTable(res);
+            saveResultToLocalStorage(res);
         });
+    } catch (error) {
+        console.error("Ошибка при обработке ответа сервера:", error);
+        showError('Ошибка при обработке ответа сервера');
+    }
 });
+
+window.addEventListener("load", () => {
+    const savedResults = JSON.parse(localStorage.getItem("results") || "[]");
+    savedResults.forEach(addRowToTable);
+});
+
+async function fetchResults(x, y, rValues) {
+    const promises = rValues.map(r =>
+        fetch(`http://localhost:8080/calculate?x=${parseFloat(x)}&y=${parseFloat(y)}&r=${parseFloat(r)}`, {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        }).then(res => res.json())
+    );
+    return Promise.all(promises);
+}
 
 function saveResultToLocalStorage(res) {
     const results = JSON.parse(localStorage.getItem("results") || "[]");
@@ -45,18 +47,12 @@ function saveResultToLocalStorage(res) {
     localStorage.setItem("results", JSON.stringify(results));
 }
 
-window.addEventListener("load", () => {
-    const savedResults = JSON.parse(localStorage.getItem("results") || "[]");
-    savedResults.forEach(res => addRowToTable(res));
-});
-
 function addRowToTable(res) {
     const tbody = document.querySelector(".jsTableRes");
     const row = document.createElement("tr");
-    const rowIndex = tbody.rows.length + 1;
 
     row.innerHTML = `
-        <td>${rowIndex}</td>
+        <td>${tbody.rows.length + 1}</td>
         <td>${res.x}</td>
         <td>${res.y}</td>
         <td>${res.r}</td>
@@ -69,29 +65,9 @@ function addRowToTable(res) {
 
 document.getElementById('clear-storage').addEventListener('click', () => {
     localStorage.removeItem("results");
-
-    const tbody = document.querySelector(".jsTableRes");
-    tbody.innerHTML = "";
+    document.querySelector(".jsTableRes").innerHTML = "";
 });
 
-function handleCheckBox(elem) {
-    if (elem.checked) {
-        const collection = document.getElementsByClassName("r");
-        for (let i = 0; i < collection.length; i++) {
-            if (collection[i] !== elem) {
-                collection[i].checked = false;
-            }
-        }
-    }
+function showError(message) {
+    document.getElementById("input-log").innerText = message;
 }
-
-document.querySelectorAll('.r').forEach(checkbox => {
-    checkbox.addEventListener('change', (event) => handleCheckBox(event.target));
-});
-
-
-
-
-
-
-
