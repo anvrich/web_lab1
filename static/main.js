@@ -11,12 +11,14 @@ document.querySelectorAll('.y-btn').forEach(button => {
 
 document.getElementById('send').addEventListener('click', async (e) => {
     e.preventDefault();
-    const x = document.getElementById('x').value.replace(',', '.');
+    const xInput = document.getElementById('x').value;
+    const x = xInput.replace(',','.');
     const r =  Array.from(document.querySelectorAll('input[name="r"]:checked')).map(input => input.value);
     if (!check(x, y, r)) return;
     try {
         const results = await fetchResults(x, y, r);
         results.forEach(res => {
+            res.originalX = xInput;
             addRowToTable(res);
             saveResultToLocalStorage(res);
         });
@@ -33,7 +35,7 @@ window.addEventListener("load", () => {
 
 async function fetchResults(x, y, rValues) {
     const promises = rValues.map(r =>
-        fetch(`http://localhost:8080/calculate?x=${parseFloat(x)}&y=${parseFloat(y)}&r=${parseFloat(r)}`, {
+        fetch(`http://localhost:8080/calculate?x=${parseFloat(x)}&y=${parseInt(y)}&r=${parseInt(r)}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         }).then(res => res.json())
@@ -53,7 +55,7 @@ function addRowToTable(res) {
 
     row.innerHTML = `
         <td>${tbody.rows.length + 1}</td>
-        <td>${res.x}</td>
+        <td>${res.originalX || res.x}</td>
         <td>${res.y}</td>
         <td>${res.r}</td>
         <td>${res.result === "true" ? "Точно в цель" : "Промах"}</td>
