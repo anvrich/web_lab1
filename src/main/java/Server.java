@@ -33,8 +33,6 @@ class Server {
         while (fcgiInterface.FCGIaccept() >= 0) {
             String method = FCGIInterface.request.params.getProperty("REQUEST_METHOD");
             String query = FCGIInterface.request.params.getProperty("QUERY_STRING");
-
-//            LOGGER.info("Received request: METHOD=" + method + ", QUERY_STRING=" + query);
             if ("GET".equals(method)) {
                 long time = System.nanoTime();
 

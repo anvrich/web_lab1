@@ -23,7 +23,6 @@ document.getElementById('send').addEventListener('click', async (e) => {
             saveResultToLocalStorage(res);
         });
     } catch (error) {
-        console.error("Ошибка при обработке ответа сервера:", error);
         showError('Ошибка при обработке ответа сервера');
     }
 });
